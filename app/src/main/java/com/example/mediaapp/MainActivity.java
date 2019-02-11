@@ -5,21 +5,25 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Button;
 
 public class MainActivity extends AppCompatActivity {
-    //Text View
+    //Text
     private TextView helloWorldTextView;
     private TextView hiWorldTextView;
+    public TextView mynameTextView;
+    //Button
+    private Button btnAnimate;
 
-    //ImageView
+    //Image
     private ImageView imageViewLion;
     private ImageView imageViewCat;
     private ImageView imageViewCat2;
 
-    //Text View
+    //Bool variable
     private Boolean flag= true;
 
-    //Image View
+    //Image
     private Boolean isLionShow= true;
 
     @Override
@@ -27,16 +31,27 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ThreadTest mythread  = new ThreadTest(mynameTextView);
+        mythread.start();
+
         //Text View
         helloWorldTextView = findViewById(R.id.txtView);
         hiWorldTextView = findViewById(R.id.txtViewHiWorld);
+        mynameTextView = findViewById(R.id.myName);
+
 
         //Image view
         imageViewLion = findViewById(R.id.imageLion);
         imageViewCat = findViewById(R.id.imageCat);
         imageViewCat2 = findViewById(R.id.imageCatView);
 
-        helloWorldTextView.setOnClickListener(new View.OnClickListener() {
+        //Button view
+        btnAnimate= findViewById(R.id.clickButton);
+
+        helloWorldTextView.setY(-2000);
+        hiWorldTextView.setY(2000);
+       // helloWorldTextView.setY(-2000);
+        /*helloWorldTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if(flag) {
@@ -51,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
                 }
             }
         });
+        */
 
         //Image View
         imageViewLion.setOnClickListener(new View.OnClickListener() {
@@ -77,8 +93,17 @@ public class MainActivity extends AppCompatActivity {
                 //imageViewCat2.animate().rotationXBy(300).setDuration(2000);
                 //imageViewCat2.animate().rotationYBy(400).setDuration(3000);
                 //imageViewCat2.animate().translationXBy(300).setDuration(3000);
-                imageViewCat2.animate().translationYBy(300).setDuration(3000);
+                imageViewCat2.animate().scaleX(0.3f).scaleY(0.3f).rotationX(90).alpha(0).setDuration(3000);
+            }
+        });
+
+        btnAnimate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                helloWorldTextView.animate().translationYBy(2000).alpha(0.75f).setDuration(3000);
+                hiWorldTextView.animate().translationYBy(-2000).setDuration(3000);
             }
         });
     }
+
 }
